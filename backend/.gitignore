@@ -1,0 +1,41 @@
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# --- Environment variables (Very important, never commit secrets) ---
+.env
+.env.local
+.env.*.local
+
+# --- Logs ---
+logs/
+*.log
+*.out
+*.err
+
+# --- Build outputs ---
+dist/
+build/
+coverage/
+.cache/
+.next/
+out/
+
+# --- OS / IDE Caches ---
+.DS_Store
+Thumbs.db
+
+# --- TypeScript ---
+*.tsbuildinfo
+
+# --- Editor configs ---
+.vscode/
+.idea/
+*.swp
+
+# --- Docker ---
+docker-data/
