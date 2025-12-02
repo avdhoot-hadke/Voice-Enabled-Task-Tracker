@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const taskSchema = mongoose.Schema(
+export const taskSchema = mongoose.Schema(
     {
         title: {
             type: String,
@@ -31,4 +31,4 @@ const taskSchema = mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Task', taskSchema);
+export const Task = mongoose.model("Task", taskSchema);
