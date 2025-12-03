@@ -86,6 +86,16 @@ export default function TaskFormModal({ isOpen, onClose, onSubmit, initialData }
                     </button>
                 </div>
 
+                {initialData?.transcript && (
+                    <div className="mb-6 bg-indigo-50 p-3 rounded-lg border border-indigo-100 animate-fadeIn">
+                        <p className="text-xs font-bold text-indigo-600 uppercase mb-1">
+                            Voice Transcript
+                        </p>
+                        <p className="text-sm text-gray-700 italic">
+                            "{initialData.transcript}"
+                        </p>
+                    </div>
+                )}
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
 

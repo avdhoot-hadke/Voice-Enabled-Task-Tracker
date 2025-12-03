@@ -18,7 +18,7 @@ export default React.memo(function TaskCard({ task, index, onClick, onDeleteTask
                         opacity: snapshot.isDragging ? 0.8 : 1
                     }}
 
-                    className={`bg-white p-4 relative rounded-lg shadow-sm border cursor-pointer transition
+                    className={`mb-2 bg-white p-4 relative rounded-lg shadow-sm border cursor-pointer transition
                         ${snapshot.isDragging ? "shadow-xl ring-2 ring-indigo-300" : "hover:shadow-md"}
                     `}
                 >
