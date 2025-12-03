@@ -1,5 +1,5 @@
 import express from "express"
-import { createTask, deleteTask, getTasks, updateTask } from "../controllers/taskcontroller.js";
+import { createTask, deleteTask, getTasks, updateTask, parseVoiceTask } from "../controllers/taskcontroller.js";
 
 export const router = express.Router();
 
@@ -10,4 +10,6 @@ router.route('/')
 router.route('/:id')
     .put(updateTask)
     .delete(deleteTask);
+
+router.post('/parse-voice', parseVoiceTask);
 
