@@ -9,6 +9,7 @@ import { LayoutGrid, List, Search, Filter, CheckCircle2, Calendar } from "lucide
 import TaskListView from "../components/TaskList.jsx";
 import { isToday, isThisWeek, isPast, parseISO, isFuture } from "date-fns";
 import ConfirmationModal from "./ConfirmationModal.jsx";
+import VoiceInput from "./VoiceInput.jsx";
 
 export default function TaskBoard() {
     const dispatch = useDispatch();
@@ -79,7 +80,7 @@ export default function TaskBoard() {
     }
 
     const handleFormSubmit = (formData) => {
-        if (editingTask) {
+        if (editingTask && editingTask._id) {
             dispatch(updateTask({ id: editingTask._id, updates: formData }));
         } else {
             dispatch(addTask(formData));
@@ -112,6 +113,10 @@ export default function TaskBoard() {
         "Done": filteredTasks.filter((t) => t.status === "Done"),
     };
 
+    const handleVoiceParsed = (parsedTask) => {
+        setEditingTask(parsedTask);
+        setIsModalOpen(true);
+    };
 
     if (status === "failed") return <div className="text-red-500">Error: {error}</div>;
 
@@ -186,6 +191,7 @@ export default function TaskBoard() {
                 >
                     + Add Task
                 </button>
+                <VoiceInput onTaskParsed={handleVoiceParsed} />
                 <div className="flex bg-gray-200 p-1 rounded-lg">
                     <button
                         onClick={() => setViewMode("board")}

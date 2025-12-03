@@ -79,7 +79,7 @@ export default function TaskFormModal({ isOpen, onClose, onSubmit, initialData }
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-bold text-gray-800">
-                        {initialData ? "Edit Task" : "Create New Task"}
+                        {initialData?._id ? "Edit Task" : "Create New Task"}
                     </h2>
                     <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
                         <X size={20} className="text-gray-500" />
