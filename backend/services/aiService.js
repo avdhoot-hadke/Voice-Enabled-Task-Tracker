@@ -1,12 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const parseTaskFromText = async (text) => {
     const currentDate = new Date().toISOString().split('T')[0];
 
-    // Define the model
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash",
         generationConfig: { responseMimeType: "application/json" }
@@ -71,14 +69,12 @@ export const parseTaskFromText = async (text) => {
         const response = await result.response;
         const textResponse = response.text();
 
-        // Clean up if the model adds markdown backticks (though responseMimeType usually fixes this)
         const jsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
 
         return JSON.parse(jsonString);
 
     } catch (error) {
         console.error("Gemini API Error:", error);
-        // Fallback: If AI fails, just return the text as a title
         return {
             title: text,
             priority: "Medium",
