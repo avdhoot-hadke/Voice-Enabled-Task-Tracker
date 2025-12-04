@@ -4,53 +4,65 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const parseTaskFromText = async (text) => {
-    const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const currentDate = new Date().toISOString().split('T')[0];
 
     // Define the model
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash",
-        // Force JSON generation for reliability
         generationConfig: { responseMimeType: "application/json" }
     });
 
     const prompt = `
-            You are a task parsing assistant. Convert the user's natural language message into a structured task object.
+                    You are a task parsing assistant. Convert the user's natural language message into a structured task object.
 
-            CURRENT DATE: ${currentDate}
+                    CURRENT DATE: ${currentDate}
 
-            ------------------------
-            STRICT OUTPUT RULES:
-            ------------------------
-            1. You MUST return ONLY a JSON object. No explanations, no text, no markdown, no backticks.
-            2. The JSON must match the schema exactly (same keys, correct types).
-            3. Do not invent information not given in the input.
-            4. If a field is missing in the input:
-            - priority → "Medium"
-            - status → "To Do"
-            - description → ""
-            - dueDate → null
+                    ------------------------
+                    TITLE RULES:
+                    ------------------------
+                    • Title must be short and action-based (3–4 words max)
+                    • Focus on the core action (e.g., "Review Authentication PR", "Fix Login", "Submit Report")
+                    • Do NOT include due dates or urgency words in the title ("urgent", "tomorrow", etc.)
 
-            ------------------------
-            DATE RULES:
-            ------------------------
-            • If user mentions relative dates ("tomorrow", "next week", "this Friday", "day after tomorrow"), 
-            compute the correct YYYY-MM-DD based on CURRENT DATE.
-            • If the text contains no date → dueDate = null
-            • Output date ONLY in YYYY-MM-DD format.
+                    ------------------------
+                    DESCRIPTION RULES:
+                    ------------------------
+                    • Include all extra details from the user’s message
+                    • Keep full natural-language context
+                    • Remove filler phrases like “create a task to” or “remind me to”
 
-            ------------------------
-            OUTPUT JSON SCHEMA:
-            {
-                "title": "string",
-                "description": "string",
-                "priority": "High" | "Medium" | "Low",
-                "status": "To Do" | "In Progress" | "Done",
-                "dueDate": "YYYY-MM-DD" | null
-            }
+                    ------------------------
+                    DATE RULES:
+                    ------------------------
+                    • If relative dates (“Friday”, “tomorrow”, “next week”) appear → convert to YYYY-MM-DD
+                    • If no date mentioned → dueDate = null
 
-            ------------------------
-            USER INPUT:
-            "${text}"
+                    ------------------------
+                    DEFAULT VALUES:
+                    ------------------------
+                    • priority → "Medium"
+                    • status → "To Do"
+                    • description → ""
+                    • dueDate → null
+
+                    ------------------------
+                    STRICT OUTPUT:
+                    ------------------------
+                    • MUST return ONLY a JSON object matching this schema exactly:
+                    {
+                      "title": "string",
+                      "description": "string",
+                      "priority": "High" | "Medium" | "Low",
+                      "status": "To Do" | "In Progress" | "Done",
+                      "dueDate": "YYYY-MM-DD" | null
+                    }
+                    • No markdown
+                    • No backticks
+                    • No commentary
+
+                    ------------------------
+                    USER INPUT:
+                    "${text}"
 `;
 
 
