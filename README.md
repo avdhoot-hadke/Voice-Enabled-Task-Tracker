@@ -86,110 +86,111 @@ A full-stack task management application inspired by Linear, featuring an intell
 GET /api/tasks
 ```
 
-        - Request: None
-        - Response: 
-            ```
-            [
-                {
-                    "_id": "69301c269c680762b80acb86",
-                    "title": "test 2",
-                    "description": "test 2",
-                    "status": "To Do",
-                    "priority": "Medium",
-                    "dueDate": "2025-12-04T00:00:00.000Z",
-                    "createdAt": "2025-12-03T11:16:54.495Z",
-                    "updatedAt": "2025-12-03T11:16:54.495Z",
-                    "__v": 0
-                },
-            ]
-            ```
-   ### Add Task
+- Request: None
+- Response: 
+    ```
+        [
+            {
+                "_id": "69301c269c680762b80acb86",
+                "title": "test 2",
+                "description": "test 2",
+                "status": "To Do",
+                "priority": "Medium",
+                "dueDate": "2025-12-04T00:00:00.000Z",
+                "createdAt": "2025-12-03T11:16:54.495Z",
+                "updatedAt": "2025-12-03T11:16:54.495Z",
+                "__v": 0
+            }
+        ]
+    ```
+### Add Task
 
 ```http
 POST /api/tasks
 ```
-        - Request: 
-            ```
-            [
-                {
-                    "title": "Setup Backend",
-                    "description": "Complete phase 2 of the assignment",
-                    "priority": "High",
-                    "status": "In Progress"
-                }
-            ]
-            ```
-        - Response: 
-            - Success
-            ```
-                {
-                    "title": "Setup Backend",
-                    "description": "Complete phase 2 of the assignment",
-                    "status": "In Progress",
-                    "priority": "High",
-                    "_id": "693128576258ef750f4916b7",
-                    "createdAt": "2025-12-04T06:21:11.012Z",
-                    "updatedAt": "2025-12-04T06:21:11.012Z",
-                    "__v": 0
-                }
-            ```
-            - Error
-            ```
-                {
-                    "message": "Title is required"
-                }
-            ```   
-   ### Update task
+- Request: 
+    ```
+    [
+        {
+            "title": "Setup Backend",
+            "description": "Complete phase 2 of the assignment",
+            "priority": "High",
+            "status": "In Progress"
+        }
+    ]
+    ```
+- Response: 
+    - Success
+        ```
+            {
+                "title": "Setup Backend",
+                "description": "Complete phase 2 of the assignment",
+                "status": "In Progress",
+                "priority": "High",
+                "_id": "693128576258ef750f4916b7",
+                "createdAt": "2025-12-04T06:21:11.012Z",
+                "updatedAt": "2025-12-04T06:21:11.012Z",
+                "__v": 0
+            }
+        ```
+    - Error
+        ```
+            {
+                "message": "Title is required"
+            }
+        ```   
+### Update task
 
 ```http
 PUT /api/tasks/${id}
 ```
-        - Request:
-            ```
-                {
-                   "status": "Done"
-                }
-            ```
-        - Response: 
-            - Success
-            ```
-                {
-                    "_id": "69301c139c680762b80acb82",
-                    "title": "Task 2",
-                    "description": "test ",
-                    "status": "Done",
-                    "priority": "Low",
-                    "dueDate": "2025-12-11T00:00:00.000Z",
-                    "createdAt": "2025-12-03T11:16:35.661Z",
-                    "updatedAt": "2025-12-04T06:23:35.729Z",
-                    "__v": 0
-                }
-            ```
-            - Error
-            ```
-                {
-                    "message": "Task not found"
-                }
-            ```            
-   ### Delete task
+- Request:
+    ```
+        {
+            "status": "Done"
+        }
+    ```
+- Response: 
+    - Success
+    ```
+        {
+            "_id": "69301c139c680762b80acb82",
+            "title": "Task 2",
+            "description": "test ",
+            "status": "Done",
+            "priority": "Low",
+            "dueDate": "2025-12-11T00:00:00.000Z",
+            "createdAt": "2025-12-03T11:16:35.661Z",
+            "updatedAt": "2025-12-04T06:23:35.729Z",
+            "__v": 0
+        }
+    ```
+    - Error
+    ```
+        {
+            "message": "Task not found"
+        }
+    ```            
+### Delete task
 
 ```http
 DELETE /api/tasks/${id}
 ```
-        - Request: None
-        - Response: 
-            - Success
-            ```
-                {
-                    "message": "Task deleted successfully"
-                }
-            ```
-            - Error
-            ```
-                {
-                    "message": "Task not found"
-                }
-            ```
+- Request: None
+- Response: 
+    - Success
+    ```
+        {
+            "message": "Task deleted successfully"
+        }
+    ```
+    - Error
+    ```
+        {
+            "message": "Task not found"
+        }
+    ```
+
 ## Decisions & Assumptions
 
 ### Decisions
